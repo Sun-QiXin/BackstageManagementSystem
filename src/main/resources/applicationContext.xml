@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--开启注解IOC的扫描路径，希望处理service、dao、自定义的异常处理器等等，controller需要SpringMVC框架去处理-->
+    <context:component-scan base-package="tourism.backstage">
+        <!--排除带有Controller注解的类-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--Spring整合Mybatis框架-->
+    <!--引入数据库配置文件-->
+    <context:property-placeholder location="classpath:druid.properties"></context:property-placeholder>
+
+    <!-- 阿里 druid 数据库连接池 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!--基本属性 url、user、password-->
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+
+        <!--最大并发连接数-->
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+
+        <!--初始化连接数量-->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+
+        <!--配置获取连接等待超时的时间-->
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+
+        <!--配置监控统计拦截的filters，去掉后监控界面sql无法统计-->
+        <property name="filters" value="${jdbc.filters}"/>
+
+        <!--最小空闲连接数-->
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+
+        <!--配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒-->
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+
+        <!--配置一个连接在池中最小生存的时间，单位是毫秒-->
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+
+        <!--打开PSCache，并且指定每个连接上PSCache的大小-->
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize}"/>
+
+        <!--是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大-->
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"></property>
+    </bean>
+
+    <!--配置生产SqlSession的工厂-->
+    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 用于指定要配置别名的包，当指定之后，该包下的实体类都会注册别名，并且类名就是别名，不再区分大小写-->
+        <property name="typeAliasesPackage" value="tourism.backstage.entity"></property>
+        <!-- mybatis映射文件路径,支持多个路径,支持通配符-->
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"></property>
+
+        <!--配置PageHelper分页插件-->
+        <property name="plugins">
+            <array>
+                <!--配置插件的对象-->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="helperDialect">oracle</prop>
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
+     </bean>
+
+    <!--扫描Dao接口包路径，生成包下所有接口的代理对象，并且放入Spring容器中-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="tourism.backstage.dao"></property>
+    </bean>
+
+    <!--配置Spring框架声明式事务管理-->
+    <!-- 配置事务管理器 -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--配置事务通知-->
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+        <!-- 配置事务的属性
+                name：要使用事务的方法名
+                isolation：用于指定事务的隔离级别。默认值是DEFAULT，表示使用数据库的默认隔离级别。
+                propagation：用于指定事务的传播行为。默认值是REQUIRED，表示一定会有事务，增删改的选择。查询方法可以选择SUPPORTS。
+                read-only：用于指定事务是否只读。只有查询方法才能设置为true。默认值是false，表示读写。
+                timeout：用于指定事务的超时时间，默认值是-1，表示永不超时。如果指定了数值，以秒为单位。
+                rollback-for：用于指定一个异常，当产生该异常时，事务回滚，产生其他异常时，事务不回滚。没有默认值。表示任何异常都回滚。
+                no-rollback-for：用于指定一个异常，当产生该异常时，事务不回滚，产生其他异常时事务回滚。没有默认值。表示任何异常都回滚。
+        -->
+        <tx:attributes>
+            <!--增删改语句的配置-->
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"></tx:method>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"></tx:method>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"></tx:method>
+            <!--只有方法名是以find...开头命名的才会使用该配置（查询语句的事务配置）-->
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"></tx:method>
+            <!--全局扫描，都不符合命名规范再走这条-->
+            <tx:method name="*" propagation="REQUIRED" read-only="false"></tx:method>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置AOP-->
+    <aop:config>
+        <!--配置切入点表达式-->
+        <aop:pointcut id="pt1" expression="execution(* tourism.backstage.service.impl.*.*(..))"/>
+        <!--建立切入点表达式和事务通知的对应关系 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"></aop:advisor>
+    </aop:config>
+</beans>

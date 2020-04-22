@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.UserDao">
+
+    <!--UserInfo的映射结果集-->
+    <resultMap id="UserInfoMap" type="UserInfo">
+        <id property="id" column="USERSID"></id>
+        <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+        <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+        <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+        <result property="phoneNum" column="PHONENUM" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="INTEGER"/>
+        <!--配置UserInfo实体类中的roles集合映射,用RoleMap返回的结果封装roles集合-->
+        <collection property="roles" ofType="Role" javaType="ArrayList" resultMap="RoleMap"></collection>
+    </resultMap>
+
+    <!--Role的映射结果集-->
+    <resultMap id="RoleMap" type="Role">
+        <id property="id" column="roleId"></id>
+        <result property="roleName" column="roleName"></result>
+        <result property="roleDesc" column="roleDesc"></result>
+        <!--配置Role实体类中的roles集合映射,用PermissionMap返回的结果封装permissions集合-->
+        <collection property="permissions" ofType="Permission" javaType="ArrayList"
+                    resultMap="PermissionMap"></collection>
+    </resultMap>
+
+    <!--Permission的映射结果集-->
+    <resultMap id="PermissionMap" type="Permission">
+        <id property="id" column="PermissionId"></id>
+        <result property="permissionName" column="permissionName"></result>
+        <result property="url" column="url"></result>
+    </resultMap>
+
+    <!--UserInfo全部字段-->
+    <sql id="allColumnUserInfo"> u.id usersId, EMAIL, USERNAME, PASSWORD, PHONENUM, STATUS </sql>
+    <!--Role全部字段-->
+    <sql id="allColumnRole"> r.ID roleId, roleName, roleDesc</sql>
+    <!--Permission全部字段-->
+    <sql id="allColumnPermission"> p.ID PermissionId, permissionName, url</sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="email != null and email != ''">
+            EMAIL,
+        </if>
+        <if test="username != null and username != ''">
+            USERNAME,
+        </if>
+        <if test="password != null and password != ''">
+            PASSWORD,
+        </if>
+        <if test="phoneNum != null and phoneNum != ''">
+            PHONENUM,
+        </if>
+        <if test="status != null">
+            STATUS
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="email != null and email != ''">
+            #{email},
+        </if>
+        <if test="username != null and username != ''">
+            #{username},
+        </if>
+        <if test="password != null and password != ''">
+            #{password},
+        </if>
+        <if test="phoneNum != null and phoneNum != ''">
+            #{phoneNum},
+        </if>
+        <if test="status != null">
+            #{status}
+        </if>
+    </sql>
+
+    <!--通用对Users各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="email != null and email != ''">
+            EMAIL = #{email},
+        </if>
+        <if test="username != null and username != ''">
+            USERNAME = #{username},
+        </if>
+        <if test="password != null and password != ''">
+            PASSWORD = #{password},
+        </if>
+        <if test="phoneNum != null and phoneNum != ''">
+            PHONENUM = #{phoneNum},
+        </if>
+        <if test="status != null">
+            STATUS = #{status}
+        </if>
+    </sql>
+
+    <!--根据用户名查询帐户的信息以及角色信息-->
+    <select id="findUserByUsername" resultMap="UserInfoMap">
+        select
+        <include refid="allColumnUserInfo"></include>,
+        <include refid="allColumnRole"></include>
+        from users u
+        left join users_role ur
+        on u.id = ur.userid
+        left join role r
+        on r.id = ur.roleid
+        <where>
+            username = #{username}
+        </where>
+    </select>
+
+    <!--查询所有用户-->
+    <select id="findAllUser" resultMap="UserInfoMap">
+        select
+        <include refid="allColumnUserInfo"></include>
+        from users u
+    </select>
+
+    <!--保存用户-->
+    <update id="saveUser">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"></include>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"></include>
+        </trim>
+    </update>
+
+    <!--修改密码，用@Param注解修改一下别名再赋值不然获取不到-->
+    <update id="updateUserById" parameterType="string">
+        update users
+        <set>
+            password = #{newPassword}
+        </set>
+        <where>
+            id = #{userId}
+        </where>
+    </update>
+
+    <!--根据id查询用户信息以及角色和权限信息-->
+    <select id="findUserById" resultMap="UserInfoMap" parameterType="string">
+        select
+        <include refid="allColumnUserInfo"></include>,
+        <include refid="allColumnRole"></include>,
+        <include refid="allColumnPermission"></include>
+        from users u
+        left join users_role ur
+        on u.id = ur.userid
+        left join role r
+        on r.id = ur.roleid
+        left join role_permission rp
+        on r.id=rp.roleid
+        left join permission p
+        on p.id = rp.permissionid
+        <where>
+            u.id = #{id}
+        </where>
+    </select>
+
+    <!--根据id删除用户-->
+    <delete id="deleteUser" parameterType="integer">
+        delete users
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+    <!--删除用户时先删除中间表Users_Role中的数据-->
+    <delete id="deleteUsers_Role">
+        delete users_role
+        <where>
+            userid = #{id}
+        </where>
+    </delete>
+
+    <!--删除用户已经添加的角色-->
+    <delete id="deleteUserRole">
+        delete users_role
+        <where>
+            userid = #{userId} and roleId = #{roleId}
+        </where>
+    </delete>
+
+    <!--根据用户的id查询除已有的角色还可以添加的角色-->
+    <select id="findOtherRole" resultMap="RoleMap">
+        select
+        <include refid="allColumnRole"></include>
+        from role r
+        <where>
+            r.id not in(select roleid from users_role <where>userid = #{id}</where> )
+        </where>
+    </select>
+
+    <!--给用户添加角色     用@Param注解修改一下别名再赋值不然获取不到-->
+    <update id="saveRoleToUser" parameterType="string">
+        insert into users_role(userid,roleid) values(#{userId},#{roleId})
+    </update>
+</mapper>

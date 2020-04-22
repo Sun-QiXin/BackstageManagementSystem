@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.OrdersDao">
+
+    <!-- 定义Orders的ResultMap -->
+    <resultMap id="OrdersMap" type="Orders">
+        <id property="id" column="oid"></id>
+        <result property="orderNum" column="orderNum"></result>
+        <result property="orderTime" column="orderTime"></result>
+        <result property="peopleCount" column="peopleCount"></result>
+        <result property="orderDesc" column="orderDesc"></result>
+        <result property="payType" column="payType"></result>
+        <result property="orderStatus" column="orderStatus"></result>
+
+        <!--配置Orders类中Product属性的映射-->
+        <collection property="product" ofType="Product">
+            <id property="id" column="pid"></id>
+            <result property="productNum" column="productNum"></result>
+            <result property="productName" column="productName"></result>
+            <result property="cityName" column="cityName"></result>
+            <result property="departureTime" column="departureTime"></result>
+            <result property="productPrice" column="productPrice"></result>
+            <result property="productDesc" column="productDesc"></result>
+            <result property="productStatus" column="productStatus"></result>
+        </collection>
+
+        <!--配置Orders类中Traveller集合的映射-->
+        <collection property="travellers" ofType="Traveller">
+            <id property="id" column="tid"></id>
+            <result property="name" column="tName"></result>
+            <result property="sex" column="sex"></result>
+            <result property="phoneNum" column="tPhoneNum"></result>
+            <result property="credentialsType" column="credentialsType"></result>
+            <result property="credentialsNum" column="credentialsNum"></result>
+            <result property="travellerType" column="travellerType"></result>
+        </collection>
+
+        <!--配置Orders类中member属性的映射-->
+        <collection property="member" ofType="Member">
+            <id property="id" column="mid"></id>
+            <result property="name" column="mName"></result>
+            <result property="nickname" column="nickname"></result>
+            <result property="phoneNum" column="mPhoneNum"></result>
+            <result property="email" column="email"></result>
+        </collection>
+    </resultMap>
+
+    <!--Orders全部字段-->
+    <sql id="allColumnOrders">o.id oid, orderNum, orderTime, peopleCount, orderDesc, payType, orderStatus</sql>
+    <!--Product全部字段-->
+    <sql id="allColumnProduct">p.id pid, productNum, productName, cityName, departureTime,productPrice,productDesc,productStatus</sql>
+    <!--Traveller全部字段-->
+    <sql id="allColumnTraveller">t.id tid, t.name tName, sex, t.phoneNum tPhoneNum, credentialsType, credentialsNum, travellerType</sql>
+    <!--Member全部字段-->
+    <sql id="allColumnMember">m.id mid, m.name mName, nickname, m.phoneNum mPhoneNum, email</sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="orderNum != null and orderNum != ''">
+            orderNum,
+        </if>
+        <if test="orderTime != null">
+            orderTime,
+        </if>
+        <if test="peopleCount != null">
+            peopleCount,
+        </if>
+        <if test="orderDesc != null and orderDesc != ''">
+            orderDesc,
+        </if>
+        <if test="payType != null">
+            payType,
+        </if>
+        <if test="orderStatus != null">
+            orderStatus,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="orderNum != null and orderNum != ''">
+            #{orderNum}
+        </if>
+        <if test="orderTime != null">
+            #{orderTime}
+        </if>
+        <if test="peopleCount != null">
+            #{peopleCount}
+        </if>
+        <if test="orderDesc != null and orderDesc != ''">
+            #{orderDesc}
+        </if>
+        <if test="payType != null">
+            #{payType}
+        </if>
+        <if test="orderStatus != null">
+            #{orderStatus}
+        </if>
+    </sql>
+
+    <!--通一对Orders各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="orderNum != null and orderNum != ''">
+            orderNum = #{orderNum}
+        </if>
+        <if test="orderTime != null">
+            orderTime = #{orderTime}
+        </if>
+        <if test="peopleCount != null">
+            peopleCount = #{peopleCount}
+        </if>
+        <if test="orderDesc != null and orderDesc != ''">
+            orderDesc = #{orderDesc}
+        </if>
+        <if test="payType != null">
+            payType = #{payType}
+        </if>
+        <if test="orderStatus != null">
+            orderStatus = #{orderStatus}
+        </if>
+    </sql>
+
+    <!--查询所有的订单信息，并根据外键查询产品信息-->
+    <select id="findAllOrders" resultMap="OrdersMap">
+        select
+        <include refid="allColumnOrders"></include>,
+        <include refid="allColumnProduct"></include>
+        from orders o
+        left join product p on o.productid = p.id
+    </select>
+
+    <!--根据id查询订单详情信息（多表查询）-->
+    <select id="findOrdersById" resultMap="OrdersMap">
+        SELECT
+        <include refid="allColumnOrders"></include>,
+        <include refid="allColumnProduct"></include>,
+        <include refid="allColumnMember"></include>,
+        <include refid="allColumnTraveller"></include>
+        FROM orders o
+        LEFT JOIN product p
+        ON o.productid = p.id
+        left join member m
+        on o.memberid = m.id
+        left join order_traveller ot
+        on o.id = ot.orderid
+        left join traveller t
+        on t.id = ot.travellerid
+        <where>
+            o.id = #{ordersId}
+        </where>
+    </select>
+</mapper>

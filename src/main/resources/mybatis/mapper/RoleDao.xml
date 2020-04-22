@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.RoleDao">
+
+    <!--ROLE的映射结果集-->
+    <resultMap type="Role" id="RoleMap">
+        <result property="id" column="roleId" jdbcType="VARCHAR"/>
+        <result property="roleName" column="ROLENAME" jdbcType="VARCHAR"/>
+        <result property="roleDesc" column="ROLEDESC" jdbcType="VARCHAR"/>
+
+        <!--permissions集合的映射信息-->
+        <collection property="permissions" ofType="Permission" resultMap="permissionMap"></collection>
+    </resultMap>
+
+    <!--Permission的映射结果集-->
+    <resultMap id="permissionMap" type="Permission">
+        <id property="id" column="permissionId"></id>
+        <result property="permissionName" column="permissionName"></result>
+        <result property="url" column="url"></result>
+    </resultMap>
+
+    <!--Role全部字段-->
+    <sql id="allColumnRole"> r.ID roleId, ROLENAME, ROLEDESC </sql>
+    <!--permissions全部字段-->
+    <sql id="allColumnPermission">p.ID permissionId, permissionName, url </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="roleName != null and roleName != ''">
+            ROLENAME,
+        </if>
+        <if test="roleDesc != null and roleDesc != ''">
+            ROLEDESC,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="roleName != null and roleName != ''">
+            #{roleName},
+        </if>
+        <if test="roleDesc != null and roleDesc != ''">
+            #{roleDesc},
+        </if>
+    </sql>
+
+    <!--通用对Role各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="roleName != null and roleName != ''">
+            ROLENAME = #{roleName},
+        </if>
+        <if test="roleDesc != null and roleDesc != ''">
+            ROLEDESC = #{roleDesc},
+        </if>
+    </sql>
+
+    <!--新增ROLE:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="saveRole" parameterType="Role">
+        insert into ROLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除ROLE:通过主键-->
+    <delete id="deleteById" parameterType="integer">
+        delete from ROLE
+        <where>
+            ID = #{id}
+        </where>
+    </delete>
+
+    <!--删除Users_Role中间表中的角色信息-->
+    <delete id="deleteUsers_Role">
+        delete from users_role
+        <where>
+            roleid = #{id}
+        </where>
+    </delete>
+
+    <!--删除Role_permission中间表中的角色信息-->
+    <delete id="deleteRole_permission">
+        delete from role_permission
+        <where>
+            roleid = #{id}
+        </where>
+    </delete>
+
+    <!--删除角色已经添加的权限-->
+    <delete id="deleteRolePermission">
+        delete role_permission
+        <where>
+            permissionId = #{permissionId} and roleId = #{roleId}
+        </where>
+    </delete>
+
+    <!--查询单个ROL顺带查询角色的权限信息-->
+    <select id="findRoleById" resultMap="RoleMap">
+        select
+        <include refid="allColumnRole"></include>,
+        <include refid="allColumnPermission"></include>
+        from role r
+        left join role_permission rp
+        on r.id = rp.roleid
+        left join permission p
+        on p.id = rp.permissionid
+        <where>
+            r.id = #{id}
+        </where>
+    </select>
+
+    <!--查询所有ROLE-->
+    <select id="findAllRole" resultMap="RoleMap">
+        select
+        <include refid="allColumnRole"></include>
+        from ROLE r
+    </select>
+
+    <!--查询除已有权限外角色还可以添加的权限-->
+    <select id="findOtherPermission" resultMap="permissionMap">
+        select
+        <include refid="allColumnPermission"></include>
+        from permission p
+        <where>
+            p.id not in(select permissionId from role_permission <where>roleId = #{id}</where> )
+        </where>
+    </select>
+
+    <!--添加角色-->
+    <update id="savePermissionToRole">
+        insert into role_permission(permissionId,roleId) values(#{permissionId},#{roleId})
+    </update>
+</mapper>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.PermissionDao">
+
+    <!--PERMISSION的映射结果集-->
+    <resultMap type="Permission" id="PermissionMap">
+        <result property="id" column="permissionId" jdbcType="VARCHAR"/>
+        <result property="permissionName" column="PERMISSIONNAME" jdbcType="VARCHAR"/>
+        <result property="url" column="URL" jdbcType="VARCHAR"/>
+
+        <!--roles集合的映射-->
+        <collection property="roles" ofType="Role">
+            <result property="id" column="roleId" jdbcType="VARCHAR"/>
+            <result property="roleName" column="ROLENAME" jdbcType="VARCHAR"/>
+            <result property="roleDesc" column="ROLEDESC" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <!--Role全部字段-->
+    <sql id="allColumnRole"> r.ID roleId, ROLENAME, ROLEDESC </sql>
+    <!--permissions全部字段-->
+    <sql id="allColumnPermission">p.ID permissionId, permissionName, url </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="permissionName != null and permissionName != ''">
+            PERMISSIONNAME,
+        </if>
+        <if test="url != null and url != ''">
+            URL,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="permissionName != null and permissionName != ''">
+            #{permissionName},
+        </if>
+        <if test="url != null and url != ''">
+            #{url},
+        </if>
+    </sql>
+
+    <!--通用对Permission各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="permissionName != null and permissionName != ''">
+            PERMISSIONNAME = #{permissionName},
+        </if>
+        <if test="url != null and url != ''">
+            URL = #{url},
+        </if>
+    </sql>
+
+    <!--新增PERMISSION:哪个字段不为空就添加哪列数据-->
+    <insert id="savePermission" parameterType="Permission">
+        insert into PERMISSION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除PERMISSION:通过主键-->
+    <delete id="deletePermissionById" parameterType="integer">
+        delete from PERMISSION
+        <where>
+            ID = #{id}
+        </where>
+    </delete>
+
+    <!--删除匹配的role_permission表中的权限信息-->
+    <delete id="deleteRole_permissionById">
+        delete from Role_permission
+        <where>
+            permissionId = #{id}
+        </where>
+    </delete>
+
+    <!--根据id查询拥有Permission权限的用户-->
+    <select id="findPermissionById" resultMap="PermissionMap">
+        select
+        <include refid="allColumnPermission"></include>,
+        <include refid="allColumnRole"></include>
+        from permission p
+        left join role_permission rp
+        on p.id = rp.permissionid
+        left join role r
+        on r.id = rp.roleid
+        <where>
+            p.id = #{id}
+        </where>
+    </select>
+
+    <!--查询所有PERMISSION-->
+    <select id="findAllPermission" resultMap="PermissionMap">
+        select
+        <include refid="allColumnPermission"></include>
+        from PERMISSION p
+    </select>
+</mapper>

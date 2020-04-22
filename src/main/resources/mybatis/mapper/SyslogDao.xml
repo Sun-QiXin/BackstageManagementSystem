@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.SysLogDao">
+
+    <!--SYSLOG的映射结果集-->
+    <resultMap type="SysLog" id="SyslogMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="visitTime" column="VISITTIME" jdbcType="TIMESTAMP"/>
+        <result property="username" column="USERNAME" jdbcType="VARCHAR"/>
+        <result property="ip" column="IP" jdbcType="VARCHAR"/>
+        <result property="url" column="URL" jdbcType="VARCHAR"/>
+        <result property="executionTime" column="EXECUTIONTIME" jdbcType="INTEGER"/>
+        <result property="method" column="METHOD" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn"> ID, VISITTIME, USERNAME, IP, URL, EXECUTIONTIME, METHOD </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="visitTime != null">
+                VISITTIME,
+        </if>
+        <if test="username != null and username != ''">
+                USERNAME,
+        </if>
+        <if test="ip != null and ip != ''">
+                IP,
+        </if>
+        <if test="url != null and url != ''">
+                URL,
+        </if>
+        <if test="executionTime != null">
+                EXECUTIONTIME,
+        </if>
+        <if test="method != null and method != ''">
+                METHOD,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+        <sql id="insertValue">
+        <if test="visitTime != null">
+                #{visitTime},
+        </if>
+        <if test="username != null and username != ''">
+                #{username},
+        </if>
+        <if test="ip != null and ip != ''">
+                #{ip},
+        </if>
+        <if test="url != null and url != ''">
+                #{url},
+        </if>
+        <if test="executionTime != null">
+                #{executionTime},
+        </if>
+        <if test="method != null and method != ''">
+                #{method},
+        </if>
+    </sql>
+
+    <!--通用对Syslog各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="visitTime != null">
+                VISITTIME = #{visitTime},
+        </if>
+        <if test="username != null and username != ''">
+                USERNAME = #{username},
+        </if>
+        <if test="ip != null and ip != ''">
+                IP = #{ip},
+        </if>
+        <if test="url != null and url != ''">
+                URL = #{url},
+        </if>
+        <if test="executionTime != null">
+                EXECUTIONTIME = #{executionTime},
+        </if>
+        <if test="method != null and method != ''">
+                METHOD = #{method},
+        </if>
+    </sql>
+
+    <!--新增SYSLOG:哪个字段不为空就添加哪列数据-->
+    <insert id="saveSyslog" parameterType="Syslog">
+        insert into SYSLOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--删除SYSLOG:通过主键-->
+    <delete id="deleteSyslogById" parameterType="integer">
+        delete from SYSLOG
+        <where>
+            ID = #{id}
+        </where>
+    </delete>
+
+
+    <!--查询所有SYSLOG-->
+    <select id="findAllSyslog" resultMap="SyslogMap">
+        select
+        <include refid="allColumn"></include>
+        from SYSLOG
+    </select>
+
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourism.backstage.dao.ProductDao">
+    <!--全部字段-->
+    <sql id="allColumn"> id, productNum, productName, cityName, departureTime,productPrice,productDesc,productStatus</sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="productNum != null and productNum != ''">
+            productNum,
+        </if>
+        <if test="productName != null and productName != ''">
+            productName,
+        </if>
+        <if test="cityName != null and cityName != ''">
+            cityName,
+        </if>
+        <if test="departureTime != null">
+            departureTime,
+        </if>
+        <if test="productPrice != null">
+            productPrice,
+        </if>
+        <if test="productDesc != null and productDesc != ''">
+            productDesc,
+        </if>
+        <if test="productStatus != null">
+            productStatus,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="productNum != null and productNum != ''">
+            #{productNum},
+        </if>
+        <if test="productName != null and productName != ''">
+            #{productName},
+        </if>
+        <if test="cityName != null and cityName != ''">
+            #{cityName},
+        </if>
+        <if test="departureTime != null">
+            #{departureTime},
+        </if>
+        <if test="productPrice != null">
+            #{productPrice},
+        </if>
+        <if test="productDesc != null and productDesc != ''">
+            #{productDesc},
+        </if>
+        <if test="productStatus != null">
+            #{productStatus},
+        </if>
+    </sql>
+
+    <!--通用对Product各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="productNum != null and productNum != ''">
+            productNum = #{productNum},
+        </if>
+        <if test="productName != null and productName != ''">
+            productName = #{productName},
+        </if>
+        <if test="cityName != null and cityName != ''">
+            cityName = #{cityName},
+        </if>
+        <if test="departureTime != null">
+            departureTime = #{departureTime},
+        </if>
+        <if test="productPrice != null">
+            productPrice = #{productPrice},
+        </if>
+        <if test="productDesc != null and productDesc != ''">
+            productDesc = #{productDesc},
+        </if>
+        <if test="productStatus != null">
+            productStatus = #{productStatus},
+        </if>
+    </sql>
+
+    <!--新增user:哪个字段不为空就添加哪列数据,返回自增主键  keyProperty="id" useGeneratedKeys="true"-->
+    <insert id="saveProduct" parameterType="Product" keyProperty="id" useGeneratedKeys="true">
+        insert into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--根据传入的数据修改产品信息-->
+    <update id="updateProduct" parameterType="Product">
+        update product
+        <set>
+            <include refid="commonsValue"></include>
+        </set>
+        <where>
+            id =#{id}
+        </where>
+    </update>
+
+    <!--根据搜索信息模糊查询并分页展示-->
+    <select id="findAllProductByMsg" resultType="Product" parameterType="string">
+        select
+        <include refid="allColumn"></include>
+        from product
+        <where>
+            1=1
+        </where>
+        <if test="searchMsg!=null and searchMsg!=''">
+            <bind name="pattern" value="'%' + searchMsg + '%'"></bind>
+            and productname like #{pattern}
+        </if>
+    </select>
+</mapper>
