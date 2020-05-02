@@ -1,69 +1,69 @@
 prompt Loading MEMBER...
 insert into MEMBER (id, name, nickname, phonenum, email)
-values ('E61D65F673D54F68B0861025C69773DB', 'ÕÅÈı', 'Ğ¡Èı', '18888888888', 'zs@163.com');
+values ('E61D65F673D54F68B0861025C69773DB', 'å¼ ä¸‰', 'å°ä¸‰', '18888888888', 'zs@163.com');
 commit;
 
 prompt Loading PRODUCT...
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('676C5BD1D35E429A8C2E114939C5685A', 'huaxin02', '±±¾©ÈıÈÕÓÎ', '±±¾©', to_timestamp('10-10-2018 10:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1200, '²»´íµÄÂÃĞĞ°Â', 1);
+values ('676C5BD1D35E429A8C2E114939C5685A', 'huaxin02', 'åŒ—äº¬ä¸‰æ—¥æ¸¸', 'åŒ—äº¬', to_timestamp('10-10-2018 10:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1200, 'ä¸é”™çš„æ—…è¡Œå¥¥', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('12B7ABF2A4C544568B0A7C69F36BF8B7', 'huaxin03', 'ÉÏº£ÎåÈÕÓÎ', 'ÉÏº£', to_timestamp('25-04-2018 14:30:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1800, 'Ä§¶¼ÎÒÀ´ÁË°Â', 1);
+values ('12B7ABF2A4C544568B0A7C69F36BF8B7', 'huaxin03', 'ä¸Šæµ·äº”æ—¥æ¸¸', 'ä¸Šæµ·', to_timestamp('25-04-2018 14:30:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1800, 'é­”éƒ½æˆ‘æ¥äº†å¥¥', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('9F71F01CB448476DAFB309AA6DF9497F', 'huaxin04', '±±¾©ÈıÈÕÓÎ', '±±¾©', to_timestamp('10-10-2018 10:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1200, '²»´íµÄÂÃĞĞ', 1);
+values ('9F71F01CB448476DAFB309AA6DF9497F', 'huaxin04', 'åŒ—äº¬ä¸‰æ—¥æ¸¸', 'åŒ—äº¬', to_timestamp('10-10-2018 10:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 1200, 'ä¸é”™çš„æ—…è¡Œ', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('CC6BC6E9496D4B8B9B52AB3A2DA2CDC5', 'huaxin01', '¹Ê¹¬ÈıÈÕÓÎ', 'Ì©°²', to_timestamp('05-01-2020 14:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ÁìÂÔ¹Ê¹¬·ç²É', 1);
+values ('CC6BC6E9496D4B8B9B52AB3A2DA2CDC5', 'huaxin01', 'æ•…å®«ä¸‰æ—¥æ¸¸', 'æ³°å®‰', to_timestamp('05-01-2020 14:10:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'é¢†ç•¥æ•…å®«é£é‡‡', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('28B5CA36C1EA4FF8A9BD65314197269C', 'huaxin05', '¹ğÁÖÓÎ', 'Ì©°²³ö·¢', to_timestamp('04-01-2020 00:05:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 9999, '¹ğÁÖÉ½Ë®¼×ÌìÏÂ°¡', 1);
+values ('28B5CA36C1EA4FF8A9BD65314197269C', 'huaxin05', 'æ¡‚æ—æ¸¸', 'æ³°å®‰å‡ºå‘', to_timestamp('04-01-2020 00:05:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 9999, 'æ¡‚æ—å±±æ°´ç”²å¤©ä¸‹å•Š', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('EC98DAFFF08B437FB2945258BED4D7EC', 'huaxin07', 'ÉÏº£µÏÊ¿Äá', 'Ì©°²Î«·»', to_timestamp('26-01-2020 05:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ÄãºÃµÏÊ¿Äá', 0);
+values ('EC98DAFFF08B437FB2945258BED4D7EC', 'huaxin07', 'ä¸Šæµ·è¿ªå£«å°¼', 'æ³°å®‰æ½åŠ', to_timestamp('26-01-2020 05:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ä½ å¥½è¿ªå£«å°¼', 0);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('CE32F9D6607E44FB98A022D3B4ECF3DF', 'huaxin08', 'ÈıÑÇ1ÈÕÓÎ', 'Ì©°²³ö·¢', to_timestamp('25-01-2020 09:05:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'Îï³¬ËùÖµ°Â', 1);
+values ('CE32F9D6607E44FB98A022D3B4ECF3DF', 'huaxin08', 'ä¸‰äºš1æ—¥æ¸¸', 'æ³°å®‰å‡ºå‘', to_timestamp('25-01-2020 09:05:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ç‰©è¶…æ‰€å€¼å¥¥', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('C31E5234F237413BB4DFCCEA8C633F0E', 'huaxin09', '¿×Ãí', 'Î«·»', to_timestamp('31-01-2020 12:27:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 998, 'Ö»Òª998', 1);
+values ('C31E5234F237413BB4DFCCEA8C633F0E', 'huaxin09', 'å­”åº™', 'æ½åŠ', to_timestamp('31-01-2020 12:27:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 998, 'åªè¦998', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('B3A4FCD482C34315BF40E102B7CE6C6A', 'huaxin010', '¼ÃÄÏ¿íºñÀï', 'Ì©°²', to_timestamp('31-01-2020 12:29:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 998, '¾´ÇëÆÚ´ı', 1);
+values ('B3A4FCD482C34315BF40E102B7CE6C6A', 'huaxin010', 'æµå—å®½åšé‡Œ', 'æ³°å®‰', to_timestamp('31-01-2020 12:29:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 998, 'æ•¬è¯·æœŸå¾…', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('DF9696ADEF28427EAF595155D310788D', 'huaxin011', 'Ì©É½ÈıÈÕÓÎ', 'Ì©°²', to_timestamp('31-01-2020 12:32:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 99911, '¶ş´ÎÓÎÍæ¼Û¸ñ¸ü±ãÒË°Â', 1);
+values ('DF9696ADEF28427EAF595155D310788D', 'huaxin011', 'æ³°å±±ä¸‰æ—¥æ¸¸', 'æ³°å®‰', to_timestamp('31-01-2020 12:32:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 99911, 'äºŒæ¬¡æ¸¸ç©ä»·æ ¼æ›´ä¾¿å®œå¥¥', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('127B8AA5CA354D14BBB4FE4FB31F4F1D', 'huaxin012', '¼ÃÄÏÜ½ÈØ½Ö', 'Ì©°²', to_timestamp('17-01-2020 10:50:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 99, 'ºÃ³ÔÓÖºÃÍæ', 1);
+values ('127B8AA5CA354D14BBB4FE4FB31F4F1D', 'huaxin012', 'æµå—èŠ™è“‰è¡—', 'æ³°å®‰', to_timestamp('17-01-2020 10:50:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 99, 'å¥½åƒåˆå¥½ç©', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('C93DC96F6C5C4B4D92DA218A92AC1787', 'huaxin013', '±±¾©Ìì°²ÃÅ', 'Ì©°²', to_timestamp('31-01-2020 12:27:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ÁìÂÔ±±¾©·ç²É', 1);
+values ('C93DC96F6C5C4B4D92DA218A92AC1787', 'huaxin013', 'åŒ—äº¬å¤©å®‰é—¨', 'æ³°å®‰', to_timestamp('31-01-2020 12:27:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'é¢†ç•¥åŒ—äº¬é£é‡‡', 1);
 insert into PRODUCT (id, productnum, productname, cityname, departuretime, productprice, productdesc, productstatus)
-values ('D4DF958D5E044E78BDB0F087A8B015C4', 'huaxin081', 'Î÷°²', 'Ì©°²', to_timestamp('10-01-2020 10:45:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ÄãºÃÎ÷°²', 1);
+values ('D4DF958D5E044E78BDB0F087A8B015C4', 'huaxin081', 'è¥¿å®‰', 'æ³°å®‰', to_timestamp('10-01-2020 10:45:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 999, 'ä½ å¥½è¥¿å®‰', 1);
 commit;
 
 prompt Loading ORDERS...
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('0E7231DC797C486290E8713CA3C6ECCC', '12345', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 1, 1, '676C5BD1D35E429A8C2E114939C5685A', 'E61D65F673D54F68B0861025C69773DB');
+values ('0E7231DC797C486290E8713CA3C6ECCC', '12345', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 1, 1, '676C5BD1D35E429A8C2E114939C5685A', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('5DC6A48DD4E94592AE904930EA866AFA', '54321', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '676C5BD1D35E429A8C2E114939C5685A', 'E61D65F673D54F68B0861025C69773DB');
+values ('5DC6A48DD4E94592AE904930EA866AFA', '54321', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '676C5BD1D35E429A8C2E114939C5685A', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('2FF351C4AC744E2092DCF08CFD314420', '67890', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('2FF351C4AC744E2092DCF08CFD314420', '67890', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('A0657832D93E4B10AE88A2D4B70B1A28', '98765', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('A0657832D93E4B10AE88A2D4B70B1A28', '98765', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('E4DD4C45EED84870ABA83574A801083E', '11111', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('E4DD4C45EED84870ABA83574A801083E', '11111', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('96CC8BD43C734CC2ACBFF09501B4DD5D', '22222', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('96CC8BD43C734CC2ACBFF09501B4DD5D', '22222', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('55F9AF582D5A4DB28FB4EC3199385762', '33333', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
+values ('55F9AF582D5A4DB28FB4EC3199385762', '33333', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('CA005CF1BE3C4EF68F88ABC7DF30E976', '44444', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
+values ('CA005CF1BE3C4EF68F88ABC7DF30E976', '44444', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('3081770BC3984EF092D9E99760FDABDE', '55555', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
+values ('3081770BC3984EF092D9E99760FDABDE', '55555', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '9F71F01CB448476DAFB309AA6DF9497F', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('CD74AF732C6A4422B4A2AAB813FC5654', '222229', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('CD74AF732C6A4422B4A2AAB813FC5654', '222229', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('5BA287BAB45A4A5895E39E77C6DD0DC7', '222225', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('5BA287BAB45A4A5895E39E77C6DD0DC7', '222225', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 insert into ORDERS (id, ordernum, ordertime, peoplecount, orderdesc, paytype, orderstatus, productid, memberid)
-values ('307CEF03ACDE4DCDA3D3F7F16204DD20', '2222254', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'Ã»Ê²Ã´', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
+values ('307CEF03ACDE4DCDA3D3F7F16204DD20', '2222254', to_timestamp('02-03-2018 12:00:00.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), 2, 'æ²¡ä»€ä¹ˆ', 0, 1, '12B7ABF2A4C544568B0A7C69F36BF8B7', 'E61D65F673D54F68B0861025C69773DB');
 commit;
 
 prompt Loading TRAVELLER...
 insert into TRAVELLER (id, name, sex, phonenum, credentialstype, credentialsnum, travellertype)
-values ('3FE27DF2A4E44A6DBC5D0FE4651D3D3E', 'ÕÅÁú', 'ÄĞ', '13333333333', 0, '123456789009876543', 0);
+values ('3FE27DF2A4E44A6DBC5D0FE4651D3D3E', 'å¼ é¾™', 'ç”·', '13333333333', 0, '123456789009876543', 0);
 insert into TRAVELLER (id, name, sex, phonenum, credentialstype, credentialsnum, travellertype)
-values ('EE7A71FB6945483FBF91543DBE851960', 'ÕÅĞ¡Áú', 'ÄĞ', '15555555555', 0, '987654321123456789', 1);
+values ('EE7A71FB6945483FBF91543DBE851960', 'å¼ å°é¾™', 'ç”·', '15555555555', 0, '987654321123456789', 1);
 commit;
 
 prompt Loading ORDER_TRAVELLER...
@@ -130,22 +130,22 @@ commit;
 
 prompt Loading SYSLOG...
 insert into SYSLOG (id, visittime, username, ip, url, executiontime, method)
-values ('2024D623F80F4D40B280EC901D835AF6', to_timestamp('04-04-2020 19:45:48.181000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'ËïÆôĞÂ', '0:0:0:0:0:0:0:1', '/user/findAllUser', 15, '[Àà] controller.UserController [·½·¨] findAllUser');
+values ('2024D623F80F4D40B280EC901D835AF6', to_timestamp('04-04-2020 19:45:48.181000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'å­™å¯æ–°', '0:0:0:0:0:0:0:1', '/user/findAllUser', 15, '[ç±»] controller.UserController [æ–¹æ³•] findAllUser');
 insert into SYSLOG (id, visittime, username, ip, url, executiontime, method)
-values ('FD029A92E55F452AACE35A6C421B3F62', to_timestamp('04-04-2020 19:44:19.094000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'ËïÆôĞÂ', '0:0:0:0:0:0:0:1', '/permission/findAllPermission', 222, '[Àà] controller.PermissionController [·½·¨] findAllPermission');
+values ('FD029A92E55F452AACE35A6C421B3F62', to_timestamp('04-04-2020 19:44:19.094000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'å­™å¯æ–°', '0:0:0:0:0:0:0:1', '/permission/findAllPermission', 222, '[ç±»] controller.PermissionController [æ–¹æ³•] findAllPermission');
 insert into SYSLOG (id, visittime, username, ip, url, executiontime, method)
-values ('641F2D783E0340589337AC45448EDC10', to_timestamp('04-04-2020 19:45:49.474000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'ËïÆôĞÂ', '0:0:0:0:0:0:0:1', '/user/findUserByIdAndAllRole', 21, '[Àà] controller.UserController [·½·¨] findUserByIdAndAllRole');
+values ('641F2D783E0340589337AC45448EDC10', to_timestamp('04-04-2020 19:45:49.474000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'å­™å¯æ–°', '0:0:0:0:0:0:0:1', '/user/findUserByIdAndAllRole', 21, '[ç±»] controller.UserController [æ–¹æ³•] findUserByIdAndAllRole');
 commit;
 
 prompt Loading USERS...
 insert into USERS (id, email, username, password, phonenum, status)
 values ('D602EC502DEF496E888C1DEBF3872EBA', '111@itcast.cn', 'huaxin', '$2a$10$eRF36z9SeSbfTH5.h1Br4uZLPQUgz7oAzJS7moMCbz8/C4ipLN6Cm', '12345678', 1);
 insert into USERS (id, email, username, password, phonenum, status)
-values ('BC15081D2245416186A5327AD54A2593', '869872@163.com11', '15153869872', '$2a$10$1fAybACANnk/nQIORdQkfuM/IQnNj0AinVH8RY2jU3BzW8Sx4olwK', '12345678', 1);
+values ('BC15081D2245416186A5327AD54A2593', '869872@163.com11', '15153869272', '$2a$10$1fAybACANnk/nQIORdQkfuM/IQnNj0AinVH8RY2jU3BzW8Sx4olwK', '12345678', 1);
 insert into USERS (id, email, username, password, phonenum, status)
-values ('8A7104A8ACC1455092AA67152E88ED1F', '826552197@qq.com', 'admin', '$2a$10$ep6iYdkFreKagXtovX8vBuVkNcIVGYF8JUsw/o.aDoMTKZNmm74Y2', '12345678', 1);
+values ('8A7104A8ACC1455092AA67152E88ED1F', '822551197@qq.com', 'admin', '$2a$10$ep6iYdkFreKagXtovX8vBuVkNcIVGYF8JUsw/o.aDoMTKZNmm74Y2', '12345678', 1);
 insert into USERS (id, email, username, password, phonenum, status)
-values ('833EEE163BBB47AB8C4C97EDD79D9969', '15153869872@163.com', 'ËïÆôĞÂ', '$2a$10$YZ2TSNuh5ULgfUG9oxpV6eTeidRl3T.c6mwsMQBJFnuHdYwG2JYNa', '15153869872', 1);
+values ('833EEE163BBB47AB8C4C97EDD79D9969', '15153869272@163.com', 'å­™å¯æ–°', '$2a$10$YZ2TSNuh5ULgfUG9oxpV6eTeidRl3T.c6mwsMQBJFnuHdYwG2JYNa', '15153869872', 1);
 commit;
 
 prompt Loading USERS_ROLE...
