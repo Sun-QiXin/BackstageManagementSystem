@@ -21,7 +21,7 @@
         <spring.version>5.2.0.RELEASE</spring.version>
         <log4j2.version>2.12.0</log4j2.version>
         <oracle.version>11.2.0.1.0</oracle.version>
-        <mybatis.version>3.5.4</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <spring.security.version>5.2.0.RELEASE</spring.security.version>
         <!--统一管理jar包版本 end..-->
 
