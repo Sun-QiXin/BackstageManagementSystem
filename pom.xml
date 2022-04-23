@@ -106,7 +106,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.2.0.RELEASE</version>
+            <version>5.3.19</version>
         </dependency>
 
         <!--包含Web 应用开发时，用到Spring 框架时所需的核心类-->
