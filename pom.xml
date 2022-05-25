@@ -22,7 +22,7 @@
         <log4j2.version>2.12.0</log4j2.version>
         <oracle.version>11.2.0.1.0</oracle.version>
         <mybatis.version>3.5.4</mybatis.version>
-        <spring.security.version>5.2.0.RELEASE</spring.security.version>
+        <spring.security.version>5.5.7</spring.security.version>
         <!--统一管理jar包版本 end..-->
 
         <!--一些源文件的编码格式并不是工具平台的默认的解析格式，二者有冲突，运行安装时会警告,需要设置以下编码-->
