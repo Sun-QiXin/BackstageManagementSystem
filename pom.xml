@@ -18,7 +18,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!--统一管理jar包版本 start..-->
-        <spring.version>5.2.0.RELEASE</spring.version>
+        <spring.version>6.0.0</spring.version>
         <log4j2.version>2.12.0</log4j2.version>
         <oracle.version>11.2.0.1.0</oracle.version>
         <mybatis.version>3.5.4</mybatis.version>
